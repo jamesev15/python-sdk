@@ -36,6 +36,7 @@ class Tool(BaseModel):
     dependencies: dict[str, Depends] | None = Field(None, description="Tool dependencies")
     annotations: ToolAnnotations | None = Field(None, description="Optional annotations for the tool")
     icons: list[Icon] | None = Field(default=None, description="Optional list of icons for this tool")
+    meta: dict[str, Any] | None = Field(default=None, description="Optional metadata for this tool")
 
     @cached_property
     def output_schema(self) -> dict[str, Any] | None:
@@ -52,6 +53,7 @@ class Tool(BaseModel):
         dependencies: dict[str, Depends] | None = None,
         annotations: ToolAnnotations | None = None,
         icons: list[Icon] | None = None,
+        meta: dict[str, Any] | None = None,
         structured_output: bool | None = None,
     ) -> Tool:
         """Create a Tool from a function."""
@@ -92,6 +94,7 @@ class Tool(BaseModel):
             dependencies=dependencies,
             annotations=annotations,
             icons=icons,
+            meta=meta,
         )
 
     async def run(
